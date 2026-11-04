@@ -1,0 +1,181 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Device Manager - QC Modem</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6fa;
+            color: #1e293b;
+        }
+
+        .main {
+            margin-left: 230px;
+            padding: 35px;
+        }
+
+        .sidebar {
+            position: fixed;
+            width: 230px;
+            height: 100vh;
+            background: #172554;
+            padding: 25px 18px;
+        }
+
+        .sidebar h2 { color: white; }
+
+        .sidebar a {
+            display: block;
+            color: #cbd5e1;
+            text-decoration: none;
+            padding: 13px;
+            border-radius: 7px;
+        }
+
+        .sidebar a.active,
+        .sidebar a:hover {
+            background: #1e40af;
+            color: white;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            background: #1d4ed8;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #eff6ff;
+        }
+
+        .action a {
+            margin-right: 10px;
+            text-decoration: none;
+        }
+
+        .empty {
+            text-align: center;
+            color: #64748b;
+            padding: 30px;
+        }
+
+        @media (max-width: 850px) {
+            .sidebar {
+                position: static;
+                width: 100%;
+                height: auto;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 20px;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+    <h2>QC MODEM</h2>
+    <a href="/">Dashboard</a>
+    <a href="/devices/" class="active">Device Manager</a>
+    <a href="#">Start QC</a>
+    <a href="#">QC Monitoring</a>
+    <a href="#">QC Reports</a>
+    <a href="#">Settings</a>
+</aside>
+
+<main class="main">
+
+    <div class="top">
+        <div>
+            <h1>Device Manager</h1>
+            <p>Manajemen perangkat ONT yang terdaftar.</p>
+        </div>
+
+        <a href="{% url 'device_create' %}" class="btn">
+            + Tambah Perangkat
+        </a>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Vendor</th>
+                <th>Model</th>
+                <th>Firmware</th>
+                <th>IP Address</th>
+                <th>Status</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for device in devices %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ device.vendor }}</td>
+                <td>{{ device.model }}</td>
+                <td>{{ device.firmware|default:"-" }}</td>
+                <td>{{ device.ip_address }}</td>
+                <td>{{ device.status }}</td>
+
+                <td class="action">
+                    <a href="{% url 'device_update' device.pk %}">
+                        Edit
+                    </a>
+
+                    <a href="{% url 'device_delete' device.pk %}">
+                        Hapus
+                    </a>
+                </td>
+            </tr>
+
+            {% empty %}
+            <tr>
+                <td colspan="7" class="empty">
+                    Belum ada perangkat ONT terdaftar.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</main>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Hapus Perangkat</title>
+</head>
+<body>
+    <h2>Hapus Perangkat</h2>
+
+    <p>
+        Apakah kamu yakin ingin menghapus
+        {{ device.vendor }} {{ device.model }}?
+    </p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Ya, Hapus</button>
+        <a href="{% url 'device_list' %}">Batal</a>
+    </form>
+</body>
+</html>

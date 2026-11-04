@@ -1,0 +1,29 @@
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual Environment
+venv/
+env/
+
+# Django
+*.sqlite3
+/staticfiles/
+
+# Environment variables
+.env
+
+# Playwright
+test-results/
+playwright-report/
+
+# QC screenshots and sensitive data
+device_gui.png
+screenshots/
+logs/
+
+# IDE
+.vscode/
+.idea/

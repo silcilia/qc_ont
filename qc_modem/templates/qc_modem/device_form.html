@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 35px;
+            font-family: Arial, sans-serif;
+            background: #f4f6fa;
+            color: #1e293b;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 11px;
+            margin-top: 7px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+        }
+
+        .field {
+            margin-bottom: 18px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        button, .back {
+            padding: 11px 17px;
+            border: 0;
+            border-radius: 6px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        button {
+            background: #1d4ed8;
+            color: white;
+        }
+
+        .back {
+            background: #e2e8f0;
+            color: #1e293b;
+        }
+
+        .errorlist {
+            color: #dc2626;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>{{ title }}</h1>
+    <p>Masukkan informasi perangkat ONT.</p>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        {% for field in form %}
+        <div class="field">
+            <label>{{ field.label }}</label>
+            {{ field }}
+            {{ field.errors }}
+        </div>
+        {% endfor %}
+
+        <button type="submit">Simpan Perangkat</button>
+        <a href="{% url 'device_list' %}" class="back">Kembali</a>
+    </form>
+</div>
+
+</body>
+</html>
